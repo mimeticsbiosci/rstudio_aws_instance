@@ -1,0 +1,35 @@
+version: "3"
+
+services:
+
+  rstudio:
+    image: rocker/rstudio:4.5.1
+    restart: always
+    ports:
+      - "8787:8787"
+    environment:
+      - PASSWORD=${PASSWORD}
+    volumes:
+      - /data/repos:/home/rstudio/repos
+      - /data/datafiles:/home/rstudio/datafiles
+      - ./rstudio_files:/home/rstudio/
+  password-change:
+    image: python_app
+    build:
+      context: ./
+      dockerfile: ./python_app/Dockerfile
+    restart: always
+    volumes:
+      - ./.env:/app/.env
+      - ./python_app:/app/python_app
+  nginx:
+    build:
+      dockerfile: ./nginx/Dockerfile
+    restart: always
+    depends_on:
+      - password-change
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./python_app/form/static:/app/python_app/form/static

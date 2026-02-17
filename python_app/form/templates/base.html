@@ -1,0 +1,17 @@
+<!doctype html>
+<title>{% block title %}R-studio util{% endblock %}</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<nav>
+    <h1>R-studio password config</h1>
+</nav>
+<section class="content">
+    <header>
+        {% block header %}{% endblock %}
+    </header>
+    {% if error %}
+    <div class="flash">{{ error }}</div>
+    {% endif %}
+    {% block content %}
+    <div>{% if message %}<br>{{ message }}{% endif %}{% if url %} <a href="{{ url }}">{{ url }}</a>{% endif %}</div>
+    {% endblock %}
+</section>

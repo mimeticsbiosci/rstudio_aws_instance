@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Set a Password{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <br><div> You did not set a password yet, choose a secure one before using R-Studio </div>
+  <form method="post">
+    <label for="username">Username</label>
+    <input name="username" id="username" value="rstudio" disabled readonly>
+    <label for="password">Password</label>
+    <input type="password" name="password" id="password" required minlength="8">
+    <small>Use a strong password, especially if R-Studio is accessible from the internet</small><br><br>
+    <input type="submit" value="Set password">
+  </form>
+{% endblock %}
